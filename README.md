@@ -7,3 +7,15 @@ Pino logic for Vaylo
 ```bash
 bun install @vaylo/pino
 ```
+
+## Usage
+
+```ts
+import { PinoClient } from "@vaylo/pino";
+
+export const loggerClient = new PinoClient({
+  level: "info",
+});
+
+export const log = loggerClient.init();
+```

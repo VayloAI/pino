@@ -9,7 +9,6 @@ const logger = new PinoClient({
   logToFile: true,
 });
 
-await logger.createLogDir();
 const log = logger.init();
 
 log.info("Test info message");

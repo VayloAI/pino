@@ -1,6 +1,4 @@
 import path from "node:path";
-import fs from "node:fs/promises";
-import fsSync from "node:fs";
 
 import { pino } from "pino";
 import { Value } from "@sinclair/typebox/value";
@@ -27,19 +25,6 @@ export class PinoClient {
     this.logPath = logPath;
     this.logName = logName;
     this.loki = loki;
-  }
-
-  async createLogDir() {
-    if (!this.logToFile) {
-      return false;
-    }
-
-    if (fsSync.existsSync(this.logPath)) {
-      return true;
-    }
-
-    await fs.mkdir(this.logPath, { recursive: true });
-    return true;
   }
 
   init() {
@@ -69,6 +54,7 @@ export class PinoClient {
         level: this.level,
         target: "pino/file",
         options: {
+          mkdir: this.logToFile,
           destination: path.join(this.logPath, `${logName}.log`),
         },
       });
